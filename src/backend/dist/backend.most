@@ -1,0 +1,69 @@
+// Version: 1.0.0
+type AgentState__368294524 =
+  {
+    lastEventCount : Nat;
+    lastRunAt : Int;
+    mapAgent : AgentStatus__682045318;
+    newsAgent : AgentStatus__682045318;
+    videoAgent : AgentStatus__682045318
+  };
+type AgentStatus__682045318 = {#complete; #error; #idle; #running};
+type ChatMessage__559859432 =
+  {
+    content : Text;
+    id : MessageId__291319400;
+    role : Role__711988144;
+    timestamp : Timestamp__301639476
+  };
+type MessageId__291319400 = Nat;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewsEvent__260668207 =
+  {
+    country : Text;
+    description : Text;
+    dismissed : Bool;
+    id : Text;
+    lat : Float;
+    lng : Float;
+    publishedAt : Int;
+    severity : Text;
+    source : Text;
+    title : Text;
+    url : Text
+  };
+type Role__711988144 = {#assistant; #user};
+type Timestamp__301639476 = Int;
+actor {
+  stable agentState : {var value : AgentState__368294524};
+  stable analyticsState :
+    {
+      var alertsDismissed : Nat;
+      var apiCallsThisHour : Nat;
+      var eventsToday : Nat;
+      var locationsTracked : Nat;
+      var videosGenerated : Nat
+    };
+  stable events :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?NewsEvent__260668207]];
+      var elementIndex : Nat__490723111
+    };
+  stable gNewsApiKey : {var value : Text};
+  stable llmState :
+    {
+      var consecutiveFailures : Nat;
+      var lastSuccessfulResponse : Text;
+      var llmStatus : Text
+    };
+  stable messages :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ChatMessage__559859432]];
+      var elementIndex : Nat__490723111
+    };
+  stable nextId : {var value : Nat};
+  stable openRouterApiKey : {var value : Text};
+  stable tier : {var value : Text}
+};

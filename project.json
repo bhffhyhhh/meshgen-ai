@@ -1,0 +1,31 @@
+{
+  "overview": "MeshGen AI is a FRIDAY-style real-time intelligence dashboard with an Iron Man HUD aesthetic. It features an AI chat assistant, live global news tracking with map event pins, multi-agent automation, smart alerts, video briefings, voice input/output, Stripe subscription tiers, and a full analytics dashboard.",
+  "features": [
+    "FRIDAY-style AI chat with real-time news context",
+    "Live global news engine with GNews API polling every 5 minutes",
+    "Color-coded event map pins (red/amber/green by severity)",
+    "Multi-agent HUD with News, Map, and Video agent status cards",
+    "Smart Alerts panel with CRITICAL/HIGH/MEDIUM severity detection",
+    "AI Video Summaries with browser TTS narration and slide controls",
+    "Voice Tab with speech recognition input and TTS output",
+    "Analytics Dashboard with event counters and sparkline chart",
+    "Stripe subscription tiers (Free/Pro/Enterprise) with quota enforcement",
+    "Event persistence with 500-event canister state circular buffer",
+    "Transport Tracker with animated mock vehicles on interactive map",
+    "Iron Man HUD aesthetic with OKLCH navy/gold, scan-line effects"
+  ],
+  "category": "productivity",
+  "tags": [
+    "ai",
+    "dashboard",
+    "real-time",
+    "intelligence",
+    "maps",
+    "news",
+    "voice",
+    "analytics",
+    "stripe",
+    "iron-man"
+  ],
+  "last_updated": "2026-04-14T09:36:18.036Z"
+}

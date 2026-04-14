@@ -1,0 +1,123 @@
+type Timestamp = int;
+type SystemInfo = 
+ record {
+   llmStatus: text;
+   messageCount: nat;
+   status: text;
+   uptimePlaceholder: text;
+ };
+type SearchResult = 
+ record {
+   snippet: text;
+   title: text;
+   url: text;
+ };
+type Role = 
+ variant {
+   assistant;
+   user;
+ };
+type NewsEvent = 
+ record {
+   country: text;
+   description: text;
+   dismissed: bool;
+   id: text;
+   lat: float64;
+   lng: float64;
+   publishedAt: int;
+   severity: text;
+   source: text;
+   title: text;
+   url: text;
+ };
+type NewsArticle = 
+ record {
+   description: text;
+   hasVideo: bool;
+   image: text;
+   publishedAt: text;
+   title: text;
+   url: text;
+ };
+type MessageId = nat;
+type HttpResponse = 
+ record {
+   body: blob;
+   headers: vec record {
+                  name: text;
+                  value: text;
+                };
+   status: nat;
+ };
+type ChatMessage = 
+ record {
+   content: text;
+   id: MessageId;
+   role: Role;
+   timestamp: Timestamp;
+ };
+type AnalyticsSnapshot = 
+ record {
+   alertsDismissed: nat;
+   apiCallsThisHour: nat;
+   eventsToday: nat;
+   locationsTracked: nat;
+   tier: text;
+   videosGenerated: nat;
+ };
+type AgentStatus = 
+ variant {
+   complete;
+   error;
+   idle;
+   running;
+ };
+type AgentState = 
+ record {
+   lastEventCount: nat;
+   lastRunAt: int;
+   mapAgent: AgentStatus;
+   newsAgent: AgentStatus;
+   videoAgent: AgentStatus;
+ };
+service : {
+  checkQuota: () -> (record {
+                       allowed: bool;
+                       limit: nat;
+                       remaining: nat;
+                     }) query;
+  clearChat: () -> ();
+  dismissEvent: (id: text) -> (bool);
+  fetchNews: () -> (vec NewsArticle);
+  getActiveAlerts: () -> (vec NewsEvent) query;
+  getAgentState: () -> (AgentState) query;
+  getAnalytics: () -> (AnalyticsSnapshot) query;
+  getChatHistory: () -> (vec ChatMessage) query;
+  getEvents: () -> (vec NewsEvent) query;
+  getGNewsKey: () -> (text) query;
+  getLlmStatus: () -> (text) query;
+  getNewsContextForChat: () -> (text) query;
+  getOpenRouterKey: () -> (text) query;
+  getRecentEvents: (limit: nat) -> (vec NewsEvent) query;
+  getSystemInfo: () -> (SystemInfo) query;
+  getTier: () -> (text) query;
+  incrementApiCall: () -> ();
+  incrementVideoCount: () -> ();
+  resetHourlyApiCalls: () -> ();
+  searchWeb: (searchQuery: text) -> (vec SearchResult);
+  sendMessage: (userMessage: text) -> (text);
+  setGNewsKey: (key: text) -> ();
+  setOpenRouterKey: (key: text) -> ();
+  setTier: (tierValue: text) -> (bool);
+  storeEvent: (event: NewsEvent) -> ();
+  transformHttpResponse: (raw:
+   record {
+     context: blob;
+     response: HttpResponse;
+   }) -> (HttpResponse) query;
+  triggerNewsRefresh: () -> (record {
+                               eventCount: nat;
+                               success: bool;
+                             });
+}
